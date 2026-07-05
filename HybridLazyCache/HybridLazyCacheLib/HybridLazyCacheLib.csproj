@@ -2,10 +2,26 @@
 
 	<PropertyGroup>
 		<TargetFrameworks>netstandard2.0;net8.0</TargetFrameworks>
+
+		
 		<IsAotCompatible Condition="$([MSBuild]::IsTargetFrameworkCompatible('$(TargetFramework)', 'net8.0'))">true</IsAotCompatible>
+		
+		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+		<PackageId>HybridLazyCache</PackageId>
+		<Authors>Calvin Nel</Authors>
+		<Description>Thread-safe, Native AOT compatible in-memory cache with cache stampede protection.</Description>
+		<RepositoryUrl>https://github.com/seabizkit/HybridLazyCache</RepositoryUrl>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 	</PropertyGroup>
+	
+	<ItemGroup>
+		<PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="8.0.1" />
+	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="10.0.7" />
+		<None Include="..\..\README.md" Pack="true" PackagePath=""/>
+		
 	</ItemGroup>
+
 </Project>

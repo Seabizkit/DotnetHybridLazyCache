@@ -1,4 +1,4 @@
 <Solution>
-  <Project Path="HybridLazyCache/HybridLazyCache.csproj" />
+  <Project Path="HybridLazyCache/HybridLazyCache.ConsoleApp.csproj" />
   <Project Path="HybridLazyCacheLib/HybridLazyCacheLib.csproj" />
 </Solution>
