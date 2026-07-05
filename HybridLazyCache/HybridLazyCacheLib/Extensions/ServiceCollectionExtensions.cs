@@ -1,13 +1,13 @@
-using HybridLazyCacheLib.Cache.Interfaces;
+using HybridLazyCacheLib.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
-namespace HybridLazyCacheLib.Cache.Extensions
+namespace HybridLazyCacheLib.Extensions
 {
     public static class ServiceCollectionExtensions
     {
         public static IServiceCollection AddHybridLazyCache(this IServiceCollection s)
         {
             s.AddMemoryCache(); 
-            s.AddSingleton<IAppCache, AppCache>(); 
+            s.AddSingleton<IHybridLazyCache, AppCache>(); 
             return s;
         }
     }
