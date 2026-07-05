@@ -15,6 +15,7 @@ namespace HybridLazyCache
             _cache = WithDI();
         }
 
+        #region Helpers
         private IHybridLazyCache WithDI()
         {
             var services = new ServiceCollection();
@@ -31,17 +32,15 @@ namespace HybridLazyCache
             return cache;
         }
 
-        
-
-        public  async Task ParelleHitsAsync()
+        private async Task GetCacheItem()
         {
-            Console.WriteLine("ParelleHits");
-            LineBeginBreak();
-            var tasks = new List<Task>();
-            for (int i = 0; i < 1000; i++)
-                tasks.Add(GetCacheItem());
-            await Task.WhenAll(tasks);
-            LineEndBreak();
+            var value = await _cache.GetOrCreateAsync("test", async (entry, ct) =>
+            {
+                Console.WriteLine("Factory called");
+                entry.SlidingExpiration = TimeSpan.FromSeconds(30);
+                await Task.Delay(1000, ct);
+                return DateTime.Now.ToString();
+            });
         }
 
         private static void LineBeginBreak()
@@ -51,6 +50,19 @@ namespace HybridLazyCache
         private static void LineEndBreak()
         {
             Console.WriteLine("....................END..........................");
+        }
+
+        #endregion
+
+        public async Task ParelleHitsAsync()
+        {
+            Console.WriteLine("ParelleHits");
+            LineBeginBreak();
+            var tasks = new List<Task>();
+            for (int i = 0; i < 1000; i++)
+                tasks.Add(GetCacheItem());
+            await Task.WhenAll(tasks);
+            LineEndBreak();
         }
 
         public async Task SlidingExpirationTest()
@@ -175,18 +187,6 @@ namespace HybridLazyCache
             Console.WriteLine(value1 == value3);
 
             LineEndBreak();
-        }
-
-        public  async Task GetCacheItem()
-        {
-            var key = "test";
-            var value = await _cache.GetOrCreateAsync(key, async (entry, ct) =>
-            {
-                Console.WriteLine("Factory called");
-                entry.SlidingExpiration = TimeSpan.FromSeconds(30);
-                await Task.Delay(1000, ct);
-                return DateTime.Now.ToString();
-            });
         }
     }
 }
