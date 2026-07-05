@@ -31,15 +31,32 @@ namespace HybridLazyCache
             return cache;
         }
 
-        public  async Task TestAsync()
+        
+
+        public  async Task ParelleHitsAsync()
         {
+            Console.WriteLine("ParelleHits");
+            LineBeginBreak();
             var tasks = new List<Task>();
-            for (int i = 0; i < 100; i++)
-                tasks.Add(GetTest());
+            for (int i = 0; i < 1000; i++)
+                tasks.Add(GetCacheItem());
             await Task.WhenAll(tasks);
+            LineEndBreak();
         }
+
+        private static void LineBeginBreak()
+        {
+            Console.WriteLine("...................BEGIN.........................");
+        }
+        private static void LineEndBreak()
+        {
+            Console.WriteLine("....................END..........................");
+        }
+
         public async Task SlidingExpirationTest()
         {
+            Console.WriteLine("SlidingExpirationTest...");
+            LineBeginBreak();
             Guid previous = Guid.Empty;
 
             for (int i = 1; i <= 5; i++)
@@ -83,10 +100,13 @@ namespace HybridLazyCache
                 });
 
             Console.WriteLine(last);
+            LineEndBreak();
         }
 
         public async Task RemoveTest()
         {
+            Console.WriteLine("RemoveTest...");
+            LineBeginBreak();
             var value1 = await _cache.GetOrCreateAsync(
                 "remove",
                 async (entry, ct) =>
@@ -108,10 +128,14 @@ namespace HybridLazyCache
                 });
 
             Console.WriteLine(value1 == value2);
+            LineEndBreak();
         }
 
         public async Task AbsoluteExpirationTest()
         {
+            Console.WriteLine("RemoveTest...");
+            LineBeginBreak();
+
             var value1 = await _cache.GetOrCreateAsync(
                 "expire",
                 async (entry, ct) =>
@@ -149,9 +173,11 @@ namespace HybridLazyCache
                 });
 
             Console.WriteLine(value1 == value3);
+
+            LineEndBreak();
         }
 
-        public  async Task GetTest()
+        public  async Task GetCacheItem()
         {
             var key = "test";
             var value = await _cache.GetOrCreateAsync(key, async (entry, ct) =>
