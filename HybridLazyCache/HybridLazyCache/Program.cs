@@ -2,9 +2,16 @@
 {
     internal class Program
     {
-        static void Main(string[] args)
+        static async Task Main(string[] args)
         {
-            Console.WriteLine("Hello, World!");
+            Console.WriteLine("AppCache tests");
+            var wrapper = new Wrapper();
+            //await wrapper.TestAsync();
+
+            await wrapper.RemoveTest();
+
+            Console.WriteLine("Success - Press ENTER");
+            Console.ReadLine();
         }
     }
 }
