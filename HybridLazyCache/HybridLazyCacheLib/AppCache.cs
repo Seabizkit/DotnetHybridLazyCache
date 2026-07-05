@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Caching.Memory;
 using System.Collections.Concurrent;
 using HybridLazyCacheLib.Interfaces;
+using HybridLazyCacheLib.Internal;
 
 namespace HybridLazyCacheLib
 {

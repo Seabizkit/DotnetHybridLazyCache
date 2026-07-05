@@ -1,7 +1,7 @@
 using HybridLazyCacheLib.Interfaces;
 using Microsoft.Extensions.Caching.Memory;
 using System;
-namespace HybridLazyCacheLib
+namespace HybridLazyCacheLib.Internal
 {
     internal sealed class CacheEntryContext : ICacheEntryContext
     {
