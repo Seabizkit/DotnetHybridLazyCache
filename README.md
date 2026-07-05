@@ -170,18 +170,6 @@ This makes it suitable for applications targeting Native AOT without additional 
 
 ---
 
-## Roadmap
-
-Planned features include:
-
-* Keyed async locking with reduced allocations
-* Entry eviction callbacks
-* Cache statistics
-* Optional logging integration
-* Distributed cache abstraction
-* Memory pressure optimizations
-* Source generators (where beneficial)
-
 Suggestions and contributions are welcome.
 
 ---
